@@ -4,26 +4,42 @@ import { useLocation, Navigate } from 'react-router-dom';
 import Layout from '@/components/Layout';
 import DiagnosisResult from '@/components/DiagnosisResult';
 import { DiagnosisResult as DiagnosisResultType, UserInfo } from '@/utils/types';
+import { getDiagnosis } from '@/api/diagnosis';
 
 const Diagnosis = () => {
   const location = useLocation();
   const { userInfo } = location.state || {};
 
-  // Mock diagnosis result - In a real application, this would come from an API
-  const mockDiagnosis: DiagnosisResultType = {
-    diagnosis: "Atopic Dermatitis (Eczema)",
-    confidence: 85,
-    description: "Atopic dermatitis is a chronic inflammatory skin condition characterized by dry, itchy skin. It's commonly associated with a personal or family history of allergies. Based on your description of red, itchy patches that worsen with stress and certain fabrics, this appears to be the most likely diagnosis. The condition tends to flare periodically and may be triggered by environmental factors, stress, or allergens."
-  };
+  const [diagnosis, setDiagnosis] = useState<DiagnosisResultType | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  // If no user info is available, redirect to the consultation page
+  useEffect(() => {
+    const fetchDiagnosis = async () => {
+      try {
+        const result = await getDiagnosis(userInfo);
+        setDiagnosis(result);
+      } catch (error) {
+        console.error("Error fetching diagnosis:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (userInfo) {
+      fetchDiagnosis();
+    }
+  }, [userInfo]);
+
   if (!userInfo) {
     return <Navigate to="/consultation" replace />;
   }
 
   return (
     <Layout>
-      <DiagnosisResult diagnosis={mockDiagnosis} userInfo={userInfo as UserInfo} />
+      {loading && <p>Loading diagnosis...</p>}
+      {!loading && diagnosis && (
+        <DiagnosisResult diagnosis={diagnosis} userInfo={userInfo as UserInfo} />
+      )}
     </Layout>
   );
 };

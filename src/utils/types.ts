@@ -2,7 +2,7 @@
 export interface UserInfo {
   age: number;
   gender: string;
-  symptoms: string;
+  condition: string;
   medications: string;
 }
 
