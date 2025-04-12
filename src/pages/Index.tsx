@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -33,7 +32,7 @@ const Index = () => {
             <div className="relative">
               <div className="absolute inset-0 bg-derma-200 rounded-3xl transform rotate-3"></div>
               <img 
-                src="https://images.unsplash.com/photo-1576495967020-8378cd1dfd12?q=80&w=2070" 
+                src="/home_page.jpg" 
                 alt="Dermatology consultation" 
                 className="relative z-10 rounded-3xl shadow-xl object-cover"
               />
