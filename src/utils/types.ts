@@ -3,7 +3,7 @@ export interface UserInfo {
   age: number;
   gender: string;
   condition: string;
-  medications: string;
+  medications?: string;
 }
 
 export interface DiagnosisResult {
