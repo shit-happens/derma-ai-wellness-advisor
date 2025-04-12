@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -63,14 +62,16 @@ const ConsultationForm: React.FC = () => {
     setIsSubmitting(true);
     
     try {
-      // In a real app, you would send the data to your API here
-      console.log('Submitting data:', userInfo);
+      const submissionData = {
+        ...userInfo,
+        medications: userInfo.medications?.trim() || 'None'
+      };
       
-      // Simulate API delay
+      console.log('Submitting data:', submissionData);
+      
       await new Promise(resolve => setTimeout(resolve, 2000));
       
-      // For now, we'll just navigate to the diagnosis page with mock data
-      navigate('/diagnosis', { state: { userInfo } });
+      navigate('/diagnosis', { state: { userInfo: submissionData } });
     } catch (error) {
       console.error('Error submitting data:', error);
       toast({

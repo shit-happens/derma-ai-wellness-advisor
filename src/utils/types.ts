@@ -1,8 +1,7 @@
-
 export interface UserInfo {
   age: number;
   gender: string;
-  condition: string;
+  symptoms: string; // Changed from 'condition' to match the form
   medications?: string;
 }
 

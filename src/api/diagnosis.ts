@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import { UserInfo } from "@/utils/types";
 
@@ -7,10 +8,11 @@ export const getDiagnosis = async (userInfo: UserInfo) => {
   const payload: UserInfo = {
     age: userInfo.age,
     gender: userInfo.gender,
-    condition: userInfo.condition,
-    medications: userInfo.medications?.trim() || "None"
+    condition: userInfo.symptoms || '', // Assuming 'symptoms' should be sent as 'condition'
+    medications: userInfo.medications?.trim() || 'None'
   };
 
   const response = await API.post("/diagnose", payload);
   return response.data;
 };
+
