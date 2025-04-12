@@ -1,7 +1,9 @@
+
 export interface UserInfo {
   age: number;
   gender: string;
-  symptoms: string; // Changed from 'condition' to match the form
+  symptoms: string; // Used in the form
+  condition?: string; // Added for API payload
   medications?: string;
 }
 
